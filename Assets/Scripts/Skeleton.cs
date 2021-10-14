@@ -38,7 +38,6 @@ public class Skeleton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && _crushDialogActive)
         {
-            _player.StopActions(true);
             _skeletonCrushDT.SetActive(false);
         }
            

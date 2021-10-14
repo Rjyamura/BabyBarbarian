@@ -17,6 +17,13 @@ public class EventManager : MonoBehaviour
         
         _instance = this;
     }
+
+    public event Action<bool> DialogActive;
+    public void DialogActivated(bool isActive)
+    {
+        if (DialogActive != null)
+            DialogActive(isActive);
+    }
     
     public event Action<int> NewHelpText;
     public void UpdateHelpText(int helpTxtNum)
