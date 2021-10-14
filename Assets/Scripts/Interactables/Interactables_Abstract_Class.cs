@@ -52,7 +52,7 @@ public  abstract class Interactables_Abstract_Class : MonoBehaviour
     protected virtual void Interact()
     {
 
-        DialogController.Instance.StartDialog(dialog);
+        DialogController.Instance.StartDialog(dialog, false);
 
     }
 }

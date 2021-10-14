@@ -97,7 +97,6 @@ public class NewPlayer : PhysicsObject
             Debug.LogError("The Canvas is NULL");
         }
 
-        _dt.TriggerDialog();
         _helpLevel = 0;
         _eventManager.UpdateHelpText(_helpLevel);
 

@@ -26,6 +26,7 @@ public class DialogController : MonoBehaviour {
 
     [SerializeField] private bool _delayOn;
     [SerializeField] private bool _typeWriterComplete;
+    [SerializeField] private bool _stopActions;
 
     public bool dialogOn;
     private bool _initialDialogHelp;
@@ -78,10 +79,11 @@ public class DialogController : MonoBehaviour {
         ContinueDialog(_dialog);
     }
 
-    public void StartDialog(Dialog dialog)
+    public void StartDialog(Dialog dialog, bool stopActions)
     {
 
         dialogOn = true;
+        _stopActions = stopActions;
         _canvasManager.ShowDialogBox(true);
         _player.StopActions(true);
         var dList = dialog._dialogInfo;
@@ -165,7 +167,12 @@ public class DialogController : MonoBehaviour {
         {
             _gammie.TransformtoDrake();
             _eventManager.GammyTaughtRage();
-        }     
+        }
+
+        if (_stopActions)
+        {
+            _player.StopActions(true);
+        }
      }
 
 

@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SceneSelector : MonoBehaviour
 {
     private Canvas _canvas;
+    private CanvasScaler _canvasScaler;
     private NewPlayer _player;
     private Gammie _gammie;
     private WaterTrigger _water;
@@ -19,6 +21,7 @@ public class SceneSelector : MonoBehaviour
     private void Start()
     {
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
         _player = FindObjectOfType<NewPlayer>();
         _gammie = FindObjectOfType<Gammie>();
         _water = FindObjectOfType<WaterTrigger>();
@@ -46,6 +49,7 @@ public class SceneSelector : MonoBehaviour
         _player.StopActions(true);
         SceneManager.LoadScene(8, LoadSceneMode.Additive);
         _canvas.enabled = false;
+        _canvasScaler.enabled = false;
         _player.enabled = false;
     }
     public void UnloadClubScene()
@@ -53,6 +57,7 @@ public class SceneSelector : MonoBehaviour
         _player.StopActions(false);
         SceneManager.UnloadSceneAsync(8);
         _canvas.enabled = true;
+        _canvasScaler.enabled = true;
         _player.enabled = true;
     }
     public void FreeGammyScene()
@@ -77,6 +82,7 @@ public class SceneSelector : MonoBehaviour
         _player.StopActions(false);
         SceneManager.UnloadSceneAsync(10);
         _canvas.enabled = true;
+        _canvasScaler.enabled = true;
         _eventManager.FreeGammieSceneActivated();
         //_gammie.TransformtoGammie();
         _player.TeachBromRage();
@@ -88,6 +94,7 @@ public class SceneSelector : MonoBehaviour
         _player.StopActions(true);
         SceneManager.LoadScene(11, LoadSceneMode.Additive);
         _canvas.enabled = false;
+        _canvasScaler.enabled = false;
         _player.enabled = false;
 
         //deactivates all interactables in scene
@@ -103,6 +110,7 @@ public class SceneSelector : MonoBehaviour
         _player.setPlayerColorDefault();
         SceneManager.UnloadSceneAsync(11);
         _canvas.enabled = true;
+        _canvasScaler.enabled = true;
         _water.WaterTriggerStart();
         _bjornActivate.ActivateBjorn();
         _player.enabled = true;
@@ -114,6 +122,7 @@ public class SceneSelector : MonoBehaviour
         SceneManager.LoadScene(13, LoadSceneMode.Additive);
         AudioManager.Instance.LoopEffectStop();
         _canvas.enabled = false;
+        _canvasScaler.enabled = false;
         _player.enabled = false;
     }
     public void ToBeContinuedScene()

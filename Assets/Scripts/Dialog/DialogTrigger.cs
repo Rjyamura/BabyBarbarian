@@ -13,6 +13,9 @@ public class DialogTrigger : MonoBehaviour
     [SerializeField] private bool _dialogTriggerOn;
     public bool dialogTriggerOn { get { return _dialogTriggerOn; } }
 
+    [SerializeField] private bool _stopActionsPost;
+    public bool stopActions { get { return _stopActionsPost; } }
+
     private void Start()
     {
         _activeOnEnter = true;
@@ -36,6 +39,6 @@ public class DialogTrigger : MonoBehaviour
     public void TriggerDialog()
     {
         if(_dialogTriggerOn)
-            DialogController.Instance.StartDialog(dialog);
+            DialogController.Instance.StartDialog(dialog, stopActions);
     }
 }
