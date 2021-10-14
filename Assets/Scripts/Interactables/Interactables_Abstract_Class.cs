@@ -51,8 +51,9 @@ public  abstract class Interactables_Abstract_Class : MonoBehaviour
 
     protected virtual void Interact()
     {
+        string name = this.gameObject.name;
 
-        DialogController.Instance.StartDialog(dialog, false);
+        DialogController.Instance.StartDialog(dialog);
 
     }
 }

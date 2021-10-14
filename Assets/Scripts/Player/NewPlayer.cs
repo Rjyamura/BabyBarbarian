@@ -105,6 +105,7 @@ public class NewPlayer : PhysicsObject
 
         _eventManager.StartGammieScene += FreeGammyCutScene;
         _eventManager.StartRage += ActivateRage;
+        _eventManager.DialogActive += StopActions;
     }
 
     // Update is called once per frame
@@ -486,6 +487,7 @@ public class NewPlayer : PhysicsObject
     {
         _eventManager.StartGammieScene -= FreeGammyCutScene;
         _eventManager.StartRage -= ActivateRage;
+        _eventManager.DialogActive -= StopActions;
     }
     public void setPlayerColorDefault()
     {
