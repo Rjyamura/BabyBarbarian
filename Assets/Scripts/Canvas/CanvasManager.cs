@@ -52,7 +52,8 @@ public class CanvasManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _confirmationBx.SetActive(true);
+            //_confirmationBx.SetActive(true);
+            MainMenu();
         }        
     }
 
