@@ -26,6 +26,7 @@ public class DialogController : MonoBehaviour {
 
     [SerializeField] private bool _delayOn;
     [SerializeField] private bool _typeWriterComplete;
+    [SerializeField] private bool _stopActionsPost;
 
     public bool dialogOn;
     private bool _initialDialogHelp;
@@ -37,6 +38,7 @@ public class DialogController : MonoBehaviour {
 
     private static DialogController _instance;
     public static DialogController Instance { get { return _instance;  } }
+
 
     private void Awake()
     {
@@ -70,6 +72,8 @@ public class DialogController : MonoBehaviour {
         _initialDialogHelp = true;
         _currentChar = "";
         _typeWriterComplete = true;
+
+       
     }
 
 
@@ -83,7 +87,7 @@ public class DialogController : MonoBehaviour {
 
         dialogOn = true;
         _canvasManager.ShowDialogBox(true);
-        _player._dbOn = true;
+        _eventManager.DialogActivated(true);
         var dList = dialog._dialogInfo;
         _dialog = dialog;
 
@@ -142,6 +146,7 @@ public class DialogController : MonoBehaviour {
         string sentence = _sentences.Dequeue();
         Sprite sprite = _dialog._dialogInfo[_dialogNum].character.charSprite;
         string name = _dialog._dialogInfo[_dialogNum].character.name;
+
         if (_dialogNum < _dialog._dialogInfo.Count - 1)
         {
             _dialogNum++;
@@ -154,20 +159,19 @@ public class DialogController : MonoBehaviour {
         _currentTWText = StartCoroutine(ShowTextTypeWrite());
     }
 
-
     private void EndDialog()
     {
-        _canvasManager.ShowDialogBox(false);
-        _player._dbOn = false;
+
+        _eventManager.DialogActivated(false);
         dialogOn = false;
+        _canvasManager.ShowDialogBox(false);
 
         if (_dialog.gammieConversation)
         {
             _gammie.TransformtoDrake();
             _eventManager.GammyTaughtRage();
-
         }
-           
+
      }
 
 

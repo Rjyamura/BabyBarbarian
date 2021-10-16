@@ -520,15 +520,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2643925493403041643}
-  - component: {fileID: 2643925493403041641}
   - component: {fileID: 1324167276}
   - component: {fileID: 1324167278}
   - component: {fileID: 965052534}
   - component: {fileID: 965052538}
   - component: {fileID: 2010995071}
   - component: {fileID: 1091014216}
-  - component: {fileID: 1091014208}
-  - component: {fileID: 1091014214}
   - component: {fileID: 5411841694583085251}
   - component: {fileID: 2272878642411540434}
   - component: {fileID: 1091014215}
@@ -557,22 +554,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2643925493403041641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2643925493403041642}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a38261ab8c60c3945961abc6ed82afbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  gravityModifier: 1
-  maxSpeed: 1
-  jumpPower: 10
 --- !u!50 &1324167276
 Rigidbody2D:
   serializedVersion: 4
@@ -641,8 +622,8 @@ MonoBehaviour:
   enrage: 0
   subtractRage: 5
   boolRage: 0
-  stopActions: 0
   isRaging: 0
+  _gameStart: 0
   hasClub: 0
   clubCinematic: 1
   freeGammyBool: 1
@@ -651,6 +632,7 @@ MonoBehaviour:
   chestOpened: 0
   rageTutorialCollect: 0
   _helpLevel: 0
+  _stopActions: 0
   gammieTransform: {fileID: 0}
   _sfxVolume: 1
   rageBar: {fileID: 0}
@@ -660,11 +642,12 @@ MonoBehaviour:
   heart1: {fileID: 0}
   heart2: {fileID: 0}
   heart3: {fileID: 0}
-  _dbOn: 0
   rb: {fileID: 1324167276}
   acceleration: 1
   rageJump: 30
   jumpCount: 0
+  _itemsToBreak: 0
+  _itemsHit: 0
 --- !u!114 &965052538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,33 +768,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1091014208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2643925493403041642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ceea8ae0dd218b4c906204a548306cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1091014214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2643925493403041642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 248b942a4af60460d9dda60b1d30e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 11400000, guid: 5b6591b9bdb654326bd54a4395127209, type: 2}
-  _activeOnEnter: 0
-  _dialogTriggerOn: 0
 --- !u!114 &5411841694583085251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +795,7 @@ MonoBehaviour:
   dialog: {fileID: 11400000, guid: 5b6591b9bdb654326bd54a4395127209, type: 2}
   _activeOnEnter: 0
   _dialogTriggerOn: 0
+  _stopActionsPost: 0
 --- !u!114 &1091014215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,7 +1003,7 @@ PrefabInstance:
     - target: {fileID: 8321640829880986575, guid: 3e61ab9d865be4567973981b7aa14abb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -55.172302
+      value: -55.17224
       objectReference: {fileID: 0}
     - target: {fileID: 8321640829880986575, guid: 3e61ab9d865be4567973981b7aa14abb,
         type: 3}

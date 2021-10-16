@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -40,6 +42,13 @@ public class CanvasManager : MonoBehaviour
         CloseHelpBox();
         OpenHelpBox();
         ShowHelpText();
+        MainMenu();
+    }
+
+    private void MainMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SceneManager.LoadScene(0);
     }
 
     public void NovelPanelActive()
@@ -87,7 +96,7 @@ public class CanvasManager : MonoBehaviour
 
     private void CloseHelpBox()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             helpBox.gameObject.SetActive(false);
             _helpBoxActive = false;

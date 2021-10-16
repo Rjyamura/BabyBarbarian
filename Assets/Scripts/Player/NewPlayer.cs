@@ -15,7 +15,6 @@ public class NewPlayer : PhysicsObject
     [SerializeField] private bool enrage = false;
     [SerializeField] private float subtractRage = 1f;
     [SerializeField] private bool boolRage;
-    [SerializeField] private bool stopActions = false;
     [SerializeField] public bool isRaging = false;
     [SerializeField] private bool _gameStart;
 
@@ -30,6 +29,9 @@ public class NewPlayer : PhysicsObject
 
     [SerializeField] private int _helpLevel;
     public int helpLevel { get { return _helpLevel; } }
+
+    [SerializeField] private bool _stopActions = false;
+    public bool stopActions { get { return _stopActions; } }
 
     private PlayerAnimation _anim;
     private SpriteRenderer _spriteR;
@@ -54,14 +56,17 @@ public class NewPlayer : PhysicsObject
     public Animator heart3;
 
     private bool _initialSwim = true;
-    private bool _isSwimming = false;
-    public bool _dbOn = false;
+    private bool _isSwimming = false;   
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float acceleration;
     [SerializeField] private float rageJump;
     private bool enragedJumpBool = true;
     [SerializeField] private int jumpCount;
+
+    [SerializeField] private int _itemsToBreak;
+    [SerializeField] private int _itemsHit;
+    private bool _waterSceneActive;
 
     // Start is called before the first frame update
     void Start()
@@ -92,25 +97,28 @@ public class NewPlayer : PhysicsObject
             Debug.LogError("The Canvas is NULL");
         }
 
-        _dt.TriggerDialog();
         _helpLevel = 0;
         _eventManager.UpdateHelpText(_helpLevel);
 
+        _gameStart = true;
+        _waterSceneActive = false;
+
         _eventManager.StartGammieScene += FreeGammyCutScene;
         _eventManager.StartRage += ActivateRage;
+        _eventManager.DialogActive += StopActions;
     }
 
     // Update is called once per frame
     void Update()
     {
        // ActivateRage();
-        triggerWaterScene();
+      //  triggerWaterScene();
         UpdateUI();
         row();
         //EnragedJump();
         FinalHelpTxt();
 
-        if (stopActions == false || _dbOn == false) 
+        if (_stopActions == false) 
         {
             if (Input.GetButtonDown("Fire1") && hasClub == true && _isSwimming == false)
             {
@@ -187,7 +195,7 @@ public class NewPlayer : PhysicsObject
             }
         }
 
-        if(_dbOn || stopActions)
+        if(_stopActions)
         {
             targetVelocity = new Vector2(Input.GetAxis("Horizontal") * 0, 0);
             _anim.Idle(0);
@@ -195,7 +203,8 @@ public class NewPlayer : PhysicsObject
 
     }
 
-    public void StopActions(bool isOn) => stopActions = isOn;
+    public void StopActions(bool isOn) => _stopActions = isOn;
+  
 
     IEnumerator ResetJumpCoroutine()
     {
@@ -246,7 +255,7 @@ public class NewPlayer : PhysicsObject
             _anim.Rage();
             enrage = true;
             boolRage = true;
-            stopActions = true;
+            _stopActions = true;
             isRaging = true;
             StartCoroutine(StartRageRoutine());
         }
@@ -272,8 +281,8 @@ public class NewPlayer : PhysicsObject
     }
     IEnumerator StartRageRoutine()
     {
-        yield return new WaitForSeconds(.5f);
-        stopActions = false;
+        yield return new WaitForSeconds(3.5f);
+        _stopActions = false;
         _spriteR.color = new Color(.9686f, .5725f, .4823f, 1f);
     }
     IEnumerator LoseRageRoutine()
@@ -286,12 +295,10 @@ public class NewPlayer : PhysicsObject
     {
         if (other.CompareTag("FindClub"))
         {
-            Debug.Log("Press 'E' to obtain club!");
 
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyUp(KeyCode.E) || Input.GetKey(KeyCode.E))
             {
                 hasClub = true;
-                Debug.Log("Club obtained!");
             }
         }
     }
@@ -299,7 +306,7 @@ public class NewPlayer : PhysicsObject
     {
         if (other.CompareTag("Water") && _initialSwim == true)
         {
-            stopActions = true;
+            _stopActions = true;
             _anim.Swim();
             StartCoroutine(StartSwimRoutine());
         }
@@ -311,7 +318,7 @@ public class NewPlayer : PhysicsObject
         {
             rageTutorialCollect += 1;
         }
-        if (other.CompareTag("Floor") && !_gameStart)
+        if (other.CompareTag("Floor") && !_gameStart && !_waterSceneActive)
         {
             PlayAudio(audioStorage._landingSound, .3f);
         }
@@ -324,7 +331,7 @@ public class NewPlayer : PhysicsObject
     {
         yield return new WaitForSeconds(3.0f);
         _initialSwim = false;
-        stopActions = false;
+        _stopActions = false;
         _isSwimming = true;
     }
     private void row()
@@ -341,22 +348,20 @@ public class NewPlayer : PhysicsObject
             }
         }
     }
-
+    public void BromMovePos()
+    {
+        transform.position = new Vector3(-5, -2, 0);
+    }
     private void FreeGammyCutScene()
     {
-        //float dist = Vector3.Distance(transform.position, gammieTransform.position);
-        //if (dist < 2.0f && freeGammyBool == true)
-        //{
-
         if (freeGammyBool)
         {
             StartCoroutine(FreeGammyRoutine());
             _helpLevel = 3;
             _eventManager.UpdateHelpText(_helpLevel);
             freeGammyBool = false;
-            stopActions = true;
+            _stopActions = true;
         }   
-        //}
     }
     IEnumerator FreeGammyRoutine()
     {
@@ -439,16 +444,31 @@ public class NewPlayer : PhysicsObject
             chestOpened = true;
         }   
     }
+
+    public void HitItem()
+    {
+        _itemsHit++;
+        rage += 20;
+
+        if (_itemsHit == _itemsToBreak)
+        {
+            CameraShake.Instance.ShakeCamera(15.0f, 3f);
+            triggerWaterScene();
+        }
+    }
+
     public void triggerWaterScene()
     {
-        if (rageTutorialCollect == 5 && chestOpened == true && rageTutorial == true)
+        // if (rageTutorialCollect == 5 && chestOpened == true && rageTutorial == true)
+        if (rageTutorial == true)
         {
             _scene.WaterScene();
+            _waterSceneActive = true;
             rageTutorial = false;
             isRaging = false;
             rage = 0;
             transform.position = new Vector3(-4.56f, -2f, 0f);
-        }
+         }
     }
 
     public void FinalHelpTxt()
@@ -467,9 +487,14 @@ public class NewPlayer : PhysicsObject
     {
         _eventManager.StartGammieScene -= FreeGammyCutScene;
         _eventManager.StartRage -= ActivateRage;
+        _eventManager.DialogActive -= StopActions;
     }
     public void setPlayerColorDefault()
     {
         _spriteR.color = new Color(1f, 1f, 1f, 1f);
+    }
+    public void rageTutorialPlusOne()
+    {
+        rageTutorialCollect++;
     }
 }

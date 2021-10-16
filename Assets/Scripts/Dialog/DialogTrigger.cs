@@ -13,6 +13,9 @@ public class DialogTrigger : MonoBehaviour
     [SerializeField] private bool _dialogTriggerOn;
     public bool dialogTriggerOn { get { return _dialogTriggerOn; } }
 
+    [SerializeField] private bool _stopActionsPost;
+    public bool stopActionsPost { get { return _stopActionsPost; } }
+
     private void Start()
     {
         _activeOnEnter = true;

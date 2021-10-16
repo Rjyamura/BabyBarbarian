@@ -17,6 +17,13 @@ public class EventManager : MonoBehaviour
         
         _instance = this;
     }
+
+    public event Action<bool> DialogActive;
+    public void DialogActivated(bool isActive)
+    {
+        if (DialogActive != null)
+            DialogActive(isActive);
+    }
     
     public event Action<int> NewHelpText;
     public void UpdateHelpText(int helpTxtNum)
@@ -48,12 +55,6 @@ public class EventManager : MonoBehaviour
             FreeGammieSceneActive();
     }
 
-    public event Action WaterSceneActive;
-    public void WaterSceneActivated()
-    {
-        if (WaterSceneActive != null)
-            WaterSceneActive();
-    }
 
     public event Action CageFallActive;
     public void CageFall()
@@ -68,6 +69,21 @@ public class EventManager : MonoBehaviour
     {
         if (StartRage != null)
             StartRage();
+    }
+
+    public event Action WaterSceneTriggered;
+    public void TriggerWaterScene()
+    {
+        if (WaterSceneTriggered != null)
+            WaterSceneTriggered();
+    }
+
+
+    public event Action WaterSceneActive;
+    public void WaterSceneActivated()
+    {
+        if (WaterSceneActive != null)
+            WaterSceneActive();
     }
 }
 
