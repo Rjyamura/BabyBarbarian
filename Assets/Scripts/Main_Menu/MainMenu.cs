@@ -45,12 +45,13 @@ public class MainMenu : MonoBehaviour
                 // Browsers go back to home
                 Application.OpenURL("https://mmcrae.itch.io/babybarbariantester");
             }
-            else if (Application.platform == RuntimePlatform.WindowsEditor
-                || Application.platform == RuntimePlatform.OSXEditor)
-            {
-                // Editors stop game mode
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
+      
+            //else if (Application.platform == RuntimePlatform.WindowsEditor
+            //    || Application.platform == RuntimePlatform.OSXEditor)
+            //{
+            //    // Editors stop game mode
+            //    UnityEditor.EditorApplication.isPlaying = false;
+            //}
             else
             {
                 // Standalone builds just quit
