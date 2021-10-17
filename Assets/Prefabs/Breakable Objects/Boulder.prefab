@@ -526,6 +526,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bc: {fileID: 0}
   _table: {fileID: 0}
+  _crashSound: {fileID: 8300000, guid: 9bcee93ba767243b9b67cd1cd2ec08cd, type: 3}
+  _hitSound: {fileID: 8300000, guid: 528d5891bae4743bca2cde31e3dd4d93, type: 3}
+  _sfxVol: 0
 --- !u!114 &7402016939908114848
 MonoBehaviour:
   m_ObjectHideFlags: 0

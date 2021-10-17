@@ -116,7 +116,6 @@ public class NewPlayer : PhysicsObject
         UpdateUI();
         row();
         //EnragedJump();
-        FinalHelpTxt();
 
         if (_stopActions == false) 
         {
@@ -357,8 +356,6 @@ public class NewPlayer : PhysicsObject
         if (freeGammyBool)
         {
             StartCoroutine(FreeGammyRoutine());
-            _helpLevel = 3;
-            _eventManager.UpdateHelpText(_helpLevel);
             freeGammyBool = false;
             _stopActions = true;
         }   
@@ -381,7 +378,7 @@ public class NewPlayer : PhysicsObject
         yield return new WaitForSeconds(.5f);
         rage = 100;
         rageTutorial = true;
-        _helpLevel = 4;
+        _helpLevel = 3;
         _eventManager.UpdateHelpText(_helpLevel);
         teachRageBool = false;
     }
@@ -450,10 +447,17 @@ public class NewPlayer : PhysicsObject
         _itemsHit++;
         rage += 20;
 
+        if(_itemsHit == (_itemsToBreak - 1))
+        {
+            _helpLevel = 4;
+            _eventManager.UpdateHelpText(_helpLevel);
+        }
+
         if (_itemsHit == _itemsToBreak)
         {
             CameraShake.Instance.ShakeCamera(15.0f, 3f);
             triggerWaterScene();
+            FinalHelpTxt();
         }
     }
 
@@ -473,14 +477,11 @@ public class NewPlayer : PhysicsObject
 
     public void FinalHelpTxt()
     {
-        bool updateLastLvl = false;
-
-        if(rageTutorialCollect == 5 && !updateLastLvl)
-        {
+      
             _helpLevel = 5;
             _eventManager.UpdateHelpText(_helpLevel);
-            updateLastLvl = true;
-        }
+      //      updateLastLvl = true;
+        
     }
 
     private void OnDestroy()
