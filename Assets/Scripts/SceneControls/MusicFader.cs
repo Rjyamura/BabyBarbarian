@@ -147,7 +147,18 @@ public class MusicFader : MonoBehaviour
 
         float currentTime = 0;
 
-        while(currentTime < duration)
+        if(targetVol_1 < 0.3)
+        {
+            targetVol_1 = -2;
+        }
+
+        if (targetVol_2 < 0.3)
+        {
+            targetVol_2 = -2;
+        }
+
+
+        while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
             float newVol_1 = Mathf.Lerp(audioMixer_1.volume, targetVol_1, currentTime / duration);
@@ -155,6 +166,7 @@ public class MusicFader : MonoBehaviour
 
             audioMixer_1.volume = newVol_1;
             audioMixer_2.volume = newVol_2;
+
 
             yield return null;
 
