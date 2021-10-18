@@ -57,7 +57,11 @@ public class CanvasManager : MonoBehaviour
         }        
     }
 
-    public void MainMenu() => SceneManager.LoadScene(0);
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        AudioManager.Instance.WaterSceneBGMStop();
+    }
     public void CloseConfirmationBox() => _confirmationBx.SetActive(false);
 
     public void NovelPanelActive()

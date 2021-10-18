@@ -69,10 +69,12 @@ public class SceneSelector : MonoBehaviour
 
     IEnumerator LoadGammyCoroutine()
     {
+        _player.StopActions(true);
         yield return new WaitForSeconds(3.0f);
+        _player.StopActions(true);
         SceneManager.LoadScene(10, LoadSceneMode.Additive);
-        _canvas.enabled = false;
-        _player.enabled = false;
+       _canvas.enabled = false;
+  //    _player.enabled = false;
 
     }
 
@@ -91,11 +93,13 @@ public class SceneSelector : MonoBehaviour
     }
     public void WaterScene()
     {
+
         _player.StopActions(true);
+        AudioManager.Instance.SfxSwitch(false);
         SceneManager.LoadScene(11, LoadSceneMode.Additive);
         _canvas.enabled = false;
         _canvasScaler.enabled = false;
-        _player.enabled = false;
+  //      _player.enabled = false;
 
         //deactivates all interactables in scene
         GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");

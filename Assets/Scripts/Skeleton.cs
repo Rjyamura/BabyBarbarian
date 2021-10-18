@@ -9,7 +9,7 @@ public class Skeleton : MonoBehaviour
     private EventManager _eventManager;
     private NewPlayer _player;
     private bool _crushDialogActive;
-    private bool _initialDialog;
+    private bool _helpHintOn;
 
     [SerializeField] private Dialog _clubFoundDialog;
     [SerializeField] private AudioClip _hitSound;
@@ -31,7 +31,7 @@ public class Skeleton : MonoBehaviour
         _eventManager.StartGammieScene += TurnOffDialog;
 
         _skeletonCrushDT.SetActive(false);
-        _initialDialog = true;
+        _helpHintOn = true;
 
         _sfxVol = 1.0f;
     }
@@ -41,26 +41,29 @@ public class Skeleton : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && _crushDialogActive)
         {
             _skeletonCrushDT.SetActive(false);
-        }
-           
+        }    
     }
 
-    public void ClubFound() => _dt.dialog = _clubFoundDialog;
+    public void ClubFound()
+    {
+        _dt.dialog = _clubFoundDialog;
+        _helpHintOn = false;
+    }
 
     public void TurnOffDialog() => _dt.TurnOffDialogTrigger();
 
+    public void TurnOffHelpHint() => _helpHintOn = false;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && _initialDialog)
+        if (other.CompareTag("Player") && _helpHintOn)
         {
-            int helpLvl = 6;
-            _initialDialog = false;
-            _eventManager.UpdateHelpText(helpLvl);
-            Debug.Log("Skeleton level over: " + helpLvl);
+            UpdateHelp();
         }
 
         if(other.CompareTag("Bird Cage"))
         {
+            Debug.Log("Skeleton crush bird cage");
             CameraShake.Instance.ShakeCamera(15.0f, 3f);
             _boulder.SetActive(true);
             SkeletonCrush();
@@ -74,7 +77,8 @@ public class Skeleton : MonoBehaviour
         DialogTrigger _crushDt = _skeletonCrushDT.GetComponent<DialogTrigger>();
         _crushDt.TriggerDialog();
         _crushDialogActive = true;
-        
+        Debug.Log("Skeleton dialog triggered crush bird cage");
+
     } 
 
     private void PlayAudio(AudioClip _soundFX, float _sfxVolume)
@@ -83,6 +87,14 @@ public class Skeleton : MonoBehaviour
         {
             AudioManager.Instance.PlayEffect(_soundFX, _sfxVolume);
         }
+    }
+
+    private void UpdateHelp()
+    {
+        int helpLvl = 6;
+        _helpHintOn = false;
+        _eventManager.UpdateHelpText(helpLvl);
+        Debug.Log("Skeleton level over: " + helpLvl);
     }
 
     private void OnDestroy()

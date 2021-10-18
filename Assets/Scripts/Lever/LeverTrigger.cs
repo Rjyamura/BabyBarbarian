@@ -6,10 +6,13 @@ public class LeverTrigger : MonoBehaviour
 {
     private Animator _anim;
     public bool ActivateBool;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponent<Animator>();       
+        _anim = GetComponent<Animator>();
+
     }
 
     public virtual void OnTriggerStay2D(Collider2D other)
@@ -18,7 +21,15 @@ public class LeverTrigger : MonoBehaviour
         {
             _anim.SetBool("Activate", true);
             ActivateBool = true;
+       
         }
+
+        if (other.gameObject.name == "Crate")
+        {
+            _anim.SetBool("Activate", true);
+            ActivateBool = true;
+        }
+            
     }
     public virtual void OnTriggerExit2D(Collider2D other)
     {
@@ -26,6 +37,7 @@ public class LeverTrigger : MonoBehaviour
         {
             _anim.SetBool("Activate", false);
             ActivateBool = false;
+            
         }
     }
 }
