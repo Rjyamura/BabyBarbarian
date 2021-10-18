@@ -9,6 +9,7 @@ public class Skeleton : MonoBehaviour
     private EventManager _eventManager;
     private NewPlayer _player;
     private bool _crushDialogActive;
+    private bool _initialDialog;
 
     [SerializeField] private Dialog _clubFoundDialog;
     [SerializeField] private AudioClip _hitSound;
@@ -30,6 +31,7 @@ public class Skeleton : MonoBehaviour
         _eventManager.StartGammieScene += TurnOffDialog;
 
         _skeletonCrushDT.SetActive(false);
+        _initialDialog = true;
 
         _sfxVol = 1.0f;
     }
@@ -49,10 +51,12 @@ public class Skeleton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && _initialDialog)
         {
             int helpLvl = 6;
-            _eventManager.UpdateHelpText(helpLvl);       
+            _initialDialog = false;
+            _eventManager.UpdateHelpText(helpLvl);
+            Debug.Log("Skeleton level over: " + helpLvl);
         }
 
         if(other.CompareTag("Bird Cage"))
