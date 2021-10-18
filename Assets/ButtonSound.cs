@@ -8,10 +8,14 @@ public class ButtonSound : MonoBehaviour
 
     [SerializeField] private AudioClip _buttonOff;
 
+    [SerializeField] private AudioClip _crateSfx;
+
+    private bool _isCrate;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _isCrate = false;
     }
 
     // Update is called once per frame
@@ -20,9 +24,19 @@ public class ButtonSound : MonoBehaviour
         
     }
 
+    public void CrateSfxOn() => _isCrate = true;
+
     public void PlaySwitchOn()
     {
-        AudioManager.Instance.PlayEffect(_buttonOn, 0.15f);
+        if (!_isCrate)
+        {
+            AudioManager.Instance.PlayEffect(_buttonOn, 0.15f);
+        }
+        else if(_isCrate)
+        {
+            AudioManager.Instance.PlayEffect(_crateSfx, 0.2f);
+            _isCrate = false;
+        }
     }
 
 

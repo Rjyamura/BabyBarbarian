@@ -466,6 +466,7 @@ public class NewPlayer : PhysicsObject
         // if (rageTutorialCollect == 5 && chestOpened == true && rageTutorial == true)
         if (rageTutorial == true)
         {
+            _stopActions = true;
             _scene.WaterScene();
             _waterSceneActive = true;
             rageTutorial = false;

@@ -52,9 +52,19 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource _bgmSource_2;
 
+    [SerializeField]private bool _sfxOn;
+
+    private void Start()
+    {
+        _sfxOn = true;
+    }
+
+    public void SfxSwitch(bool isOn) => _sfxOn = isOn;
+
     public void PlayEffect(AudioClip effect, float volume)
     {
-        _sfxSource.PlayOneShot(effect, volume);
+        if(_sfxOn)
+            _sfxSource.PlayOneShot(effect, volume);
     }
 
     public void LoopEffectStart(AudioClip effect, float volume, bool isLoopingOn)
@@ -67,6 +77,11 @@ public class AudioManager : MonoBehaviour
 
     public void LoopEffectStop() => _sfxSource.Stop();
 
+    public void WaterSceneBGMStop()
+    {
+        if(_bgmSource_2 != null)
+              _bgmSource_2.Stop();
+    } 
 
     public void PlayMusic(AudioClip music, float volume, int source)
     {

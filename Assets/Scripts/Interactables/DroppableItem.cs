@@ -9,6 +9,7 @@ public class DroppableItem : MonoBehaviour
     private EventManager _eventManager;
     private Collider2D _water;
     private CapsuleCollider2D _c2D;
+    private ButtonSound _buttonSound;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,10 @@ public class DroppableItem : MonoBehaviour
         _c2D = GetComponent<CapsuleCollider2D>();
         if (_c2D == null)
             Debug.Log("Collider is NULL");
+
+        _buttonSound = FindObjectOfType<ButtonSound>();
+        if (_buttonSound == null)
+            Debug.Log("Button sound NULL");
 
         _water = GameObject.Find("Water").GetComponent<Collider2D>();
         _eventManager = EventManager.Instance != null ? EventManager.Instance : FindObjectOfType<EventManager>();
@@ -44,6 +49,7 @@ public class DroppableItem : MonoBehaviour
                 case "Crate":
                     UpdateHelpTxtCrate();
                     CameraShake.Instance.ShakeCamera(5.0f, .1f);
+                    _buttonSound.CrateSfxOn();
                     break;
 
                 default:

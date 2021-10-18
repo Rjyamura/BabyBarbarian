@@ -34,6 +34,7 @@ public class BreakableObject : MonoBehaviour
                 if (this.tag == "Chest")
                 {
                     _player.rageTutorialChest();
+                    _player.StopActions(true);
                     PlayAudio(_treasureHitSound, _sfxVol);
                 }
                 else
