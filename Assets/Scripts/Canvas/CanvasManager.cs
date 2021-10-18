@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,8 @@ public class CanvasManager : MonoBehaviour
 
     [SerializeField]
     private Text _helpText;
+
+    [SerializeField] private GameObject _confirmationBx;
 
     private DialogController _dialogController;
     private bool _dbActive;
@@ -42,14 +45,20 @@ public class CanvasManager : MonoBehaviour
         CloseHelpBox();
         OpenHelpBox();
         ShowHelpText();
-        MainMenu();
+        ConfirmationBox();
     }
 
-    private void MainMenu()
+    private void ConfirmationBox()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            SceneManager.LoadScene(0);
+        {
+            //_confirmationBx.SetActive(true);
+            MainMenu();
+        }        
     }
+
+    public void MainMenu() => SceneManager.LoadScene(0);
+    public void CloseConfirmationBox() => _confirmationBx.SetActive(false);
 
     public void NovelPanelActive()
     {

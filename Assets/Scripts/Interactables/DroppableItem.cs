@@ -16,6 +16,8 @@ public class DroppableItem : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         _c2D = GetComponent<CapsuleCollider2D>();
+        if (_c2D == null)
+            Debug.Log("Collider is NULL");
 
         _water = GameObject.Find("Water").GetComponent<Collider2D>();
         _eventManager = EventManager.Instance != null ? EventManager.Instance : FindObjectOfType<EventManager>();
@@ -29,11 +31,12 @@ public class DroppableItem : MonoBehaviour
         {
             _rb.gravityScale = 1.0f;
             _anim.enabled = false;
-            _c2D.isTrigger = false;
+          
 
             switch (gameObject.name)
             {
                 case "Bird_Cage":
+                    _c2D.isTrigger = false;
                     _eventManager.BirdCageKnockedDown();
                     CameraShake.Instance.ShakeCamera(5.0f, .1f);
                     break;
