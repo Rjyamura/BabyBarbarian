@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5777,7 +5777,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778947191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.899777, y: 1.0480447, z: -10}
+  m_LocalPosition: {x: -3.8987203, y: 1.0480447, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12814,10 +12814,20 @@ PrefabInstance:
       propertyPath: _hitSound
       value: 
       objectReference: {fileID: 8300000, guid: b0c929276b1ad4ed1a462a70673d4437, type: 3}
+    - target: {fileID: 7402016939908114855, guid: 020409ff78a22f84785a08571701de49,
+        type: 3}
+      propertyPath: _crashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 960b341144097db49bd68552eb323c89, type: 3}
     - target: {fileID: 7402016939908114858, guid: 020409ff78a22f84785a08571701de49,
         type: 3}
       propertyPath: m_Name
       value: Boulder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7402016939908114858, guid: 020409ff78a22f84785a08571701de49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 020409ff78a22f84785a08571701de49, type: 3}
@@ -13030,19 +13040,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1593540215, guid: 58372a8335d4d5b47a12189743b2116b, type: 3}
       propertyPath: m_Size.x
-      value: 0.8111693
+      value: 1.0132116
       objectReference: {fileID: 0}
     - target: {fileID: 1593540215, guid: 58372a8335d4d5b47a12189743b2116b, type: 3}
       propertyPath: m_Size.y
-      value: 1.1684549
+      value: 1.2967432
       objectReference: {fileID: 0}
     - target: {fileID: 1593540215, guid: 58372a8335d4d5b47a12189743b2116b, type: 3}
       propertyPath: m_Offset.x
-      value: 0.0007543564
+      value: -0.0030797324
       objectReference: {fileID: 0}
     - target: {fileID: 1593540215, guid: 58372a8335d4d5b47a12189743b2116b, type: 3}
       propertyPath: m_Offset.y
-      value: -0.19765615
+      value: -0.22021818
       objectReference: {fileID: 0}
     - target: {fileID: 1593540215, guid: 58372a8335d4d5b47a12189743b2116b, type: 3}
       propertyPath: m_IsTrigger
