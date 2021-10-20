@@ -40,6 +40,13 @@ public class EventManager : MonoBehaviour
             ClubFound();
     }
 
+    public event Action SkeletonCrushed;
+    public void CrushedSkeleton()
+    {
+        if (SkeletonCrushed != null)
+            SkeletonCrushed();
+    }
+
     public Action StartGammieScene;
     public void BirdCageKnockedDown()
     {

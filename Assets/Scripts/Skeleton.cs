@@ -63,7 +63,6 @@ public class Skeleton : MonoBehaviour
 
         if(other.CompareTag("Bird Cage"))
         {
-            Debug.Log("Skeleton crush bird cage");
             CameraShake.Instance.ShakeCamera(15.0f, 3f);
             _boulder.SetActive(true);
             SkeletonCrush();
@@ -74,9 +73,8 @@ public class Skeleton : MonoBehaviour
     public void SkeletonCrush()
     {
         _skeletonCrushDT.SetActive(true);
-        DialogTrigger _crushDt = _skeletonCrushDT.GetComponent<DialogTrigger>();
-        _crushDt.TriggerDialog();
         _crushDialogActive = true;
+        _eventManager.CrushedSkeleton();
         Debug.Log("Skeleton dialog triggered crush bird cage");
 
     } 
