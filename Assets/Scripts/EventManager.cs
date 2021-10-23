@@ -13,11 +13,16 @@ public class EventManager : MonoBehaviour
     void Awake()
     {
         if (_instance != null && _instance != this)
-        {
-            Destroy(this);
-        }
-
+           Destroy(this);
+        
         _instance = this;
+    }
+
+    public event Action<bool> DialogActive;
+    public void DialogActivated(bool isActive)
+    {
+        if (DialogActive != null)
+            DialogActive(isActive);
     }
     
     public event Action<int> NewHelpText;
@@ -35,13 +40,19 @@ public class EventManager : MonoBehaviour
             ClubFound();
     }
 
+    public event Action SkeletonCrushed;
+    public void CrushedSkeleton()
+    {
+        if (SkeletonCrushed != null)
+            SkeletonCrushed();
+    }
+
     public Action StartGammieScene;
     public void BirdCageKnockedDown()
     {
         if(StartGammieScene != null)
-        {
             StartGammieScene();
-        }
+        
     }
 
     public event Action FreeGammieSceneActive;
@@ -51,5 +62,35 @@ public class EventManager : MonoBehaviour
             FreeGammieSceneActive();
     }
 
+
+    public event Action CageFallActive;
+    public void CageFall()
+    {
+        if (CageFallActive != null)
+            CageFallActive();
+    }
+
+
+    public event Action StartRage;
+    public void GammyTaughtRage()
+    {
+        if (StartRage != null)
+            StartRage();
+    }
+
+    public event Action WaterSceneTriggered;
+    public void TriggerWaterScene()
+    {
+        if (WaterSceneTriggered != null)
+            WaterSceneTriggered();
+    }
+
+
+    public event Action WaterSceneActive;
+    public void WaterSceneActivated()
+    {
+        if (WaterSceneActive != null)
+            WaterSceneActive();
+    }
 }
 

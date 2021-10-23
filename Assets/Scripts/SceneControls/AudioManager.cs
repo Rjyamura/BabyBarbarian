@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
         _instance = this;
         _sfxSource = GameObject.Find("SFX").GetComponent<AudioSource>();
         _bgmSource = GameObject.Find("BGM").GetComponent<AudioSource>();
+        _bgmSource_2 = GameObject.Find("BGM_2").GetComponent<AudioSource>();
     }
     #endregion
 
@@ -48,20 +49,60 @@ public class AudioManager : MonoBehaviour
     private AudioSource _sfxSource;
     [SerializeField]
     private AudioSource _bgmSource;
+    [SerializeField]
+    private AudioSource _bgmSource_2;
+
+    [SerializeField]private bool _sfxOn;
+
+    private void Start()
+    {
+        _sfxOn = true;
+    }
+
+    public void SfxSwitch(bool isOn) => _sfxOn = isOn;
 
     public void PlayEffect(AudioClip effect, float volume)
     {
-        _sfxSource.PlayOneShot(effect, volume);
+        if(_sfxOn)
+            _sfxSource.PlayOneShot(effect, volume);
     }
 
-
-    public void PlayMusic(AudioClip music, float volume)
+    public void LoopEffectStart(AudioClip effect, float volume, bool isLoopingOn)
     {
-        _bgmSource.Stop();
-        _bgmSource.clip = music;
-        _bgmSource.volume = volume;
-        _bgmSource.loop = true;
-        _bgmSource.Play();
+        _sfxSource.clip = effect;
+        _sfxSource.volume = volume;
+        _sfxSource.loop = isLoopingOn;
+        _sfxSource.Play();
+    }
+
+    public void LoopEffectStop() => _sfxSource.Stop();
+
+    public void WaterSceneBGMStop()
+    {
+        if(_bgmSource_2 != null)
+              _bgmSource_2.Stop();
+    } 
+
+    public void PlayMusic(AudioClip music, float volume, int source)
+    {
+        if (source == 1)
+        {
+            _bgmSource.Stop();
+            _bgmSource.clip = music;
+            _bgmSource.volume = volume;
+            _bgmSource.loop = true;
+            _bgmSource.Play();
+        }
+
+        if (source == 2)
+        {
+            _bgmSource_2.Stop();
+            _bgmSource_2.clip = music;
+            _bgmSource_2.volume = volume;
+            _bgmSource_2.loop = true;
+            _bgmSource_2.Play();
+        }
+
     }
   
 }

@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -12,10 +15,12 @@ public class CanvasManager : MonoBehaviour
     public GameObject _dialogbox;
 
     [SerializeField]
-    public GameObject _findClubHelp;
+    public GameObject _EtoInteract;
 
     [SerializeField]
     private Text _helpText;
+
+    [SerializeField] private GameObject _confirmationBx;
 
     private DialogController _dialogController;
     private bool _dbActive;
@@ -40,7 +45,24 @@ public class CanvasManager : MonoBehaviour
         CloseHelpBox();
         OpenHelpBox();
         ShowHelpText();
+        ConfirmationBox();
     }
+
+    private void ConfirmationBox()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //_confirmationBx.SetActive(true);
+            MainMenu();
+        }        
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        AudioManager.Instance.WaterSceneBGMStop();
+    }
+    public void CloseConfirmationBox() => _confirmationBx.SetActive(false);
 
     public void NovelPanelActive()
     {
@@ -87,12 +109,12 @@ public class CanvasManager : MonoBehaviour
 
     private void CloseHelpBox()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             helpBox.gameObject.SetActive(false);
             _helpBoxActive = false;
         }     
     }
 
-    public void FindClubHelp(bool isActive) => _findClubHelp.gameObject.SetActive(isActive);
+    public void EtoInteractIsActive(bool isActive) => _EtoInteract.gameObject.SetActive(isActive);
 }

@@ -15,6 +15,10 @@ TagManager:
   - Music
   - RageCollectible
   - Chest
+  - Canvas
+  - Floor
+  - table_break
+  - Interactable
   layers:
   - Default
   - TransparentFX

@@ -32,10 +32,32 @@ public class MainMenu : MonoBehaviour
         Animator fadeAnim = fader.GetComponent<Animator>();
 
         fadeAnim.SetTrigger("LoadScene");
+
+        //LoadScene();
     }
     public void Quit()
     {
-        Application.Quit();
+        //Application.Quit();
+
+ 
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                // Browsers go back to home
+                Application.OpenURL("https://mmcrae.itch.io/babybarbariantester");
+            }
+      
+            //else if (Application.platform == RuntimePlatform.WindowsEditor
+            //    || Application.platform == RuntimePlatform.OSXEditor)
+            //{
+            //    // Editors stop game mode
+            //    UnityEditor.EditorApplication.isPlaying = false;
+            //}
+            else
+            {
+                // Standalone builds just quit
+                Application.Quit();
+            }
+        
     }
 
     public void LoadScene()
