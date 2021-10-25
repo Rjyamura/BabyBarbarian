@@ -43,7 +43,7 @@ public class MainMenu : MonoBehaviour
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 // Browsers go back to home
-                Application.OpenURL("https://mmcrae.itch.io/babybarbariantester");
+                Application.OpenURL("https://owngoalbooks.itch.io/baby-barbarian-metroidvania-game-teaser");
             }
       
             //else if (Application.platform == RuntimePlatform.WindowsEditor
